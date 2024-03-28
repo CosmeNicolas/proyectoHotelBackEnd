@@ -2,8 +2,8 @@ import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import morgan from "morgan";
-
 import "./src/database/database.js"
+
 
 //! 1 - Configurar un PUERTO
 const app = express();
