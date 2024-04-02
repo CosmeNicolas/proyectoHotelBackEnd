@@ -18,9 +18,13 @@ const habitacionSchema = new Schema({
     min: 27000,
     max: 120000,
   },
-  fechaIngreso: { type: Date, required: true },
-  
-  fechaSalida: { type: Date, required: true },
+  fechaIngreso: {
+     type: Date,
+      required: true },
+
+  fechaSalida: {
+     type: Date,
+      required: true },
 
   disponible: {
     type: Boolean,
@@ -38,4 +42,6 @@ const habitacionSchema = new Schema({
   },
 });
 
-export default mongoose.model("Habitacion", habitacionSchema);
+const Habitacion = mongoose.model("habitacion", habitacionSchema);
+
+export default  Habitacion;
