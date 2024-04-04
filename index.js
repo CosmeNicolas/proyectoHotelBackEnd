@@ -8,6 +8,7 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from "url";
 import "./src/database/database.js";
 import habitacionesRouter from "./src/routes/habitaciones.routes.js";
+import usuariosRouter from "./src/routes/usuarios.routes.js"
 
 //! 1 - Configurar un PUERTO
 const app = express();
@@ -28,3 +29,4 @@ app.use(express.static(path.join(__dirname, "/public")));
 //! 3 - Config RUTAS
 
 app.use("/api", habitacionesRouter);
+app.use("/api", usuariosRouter)
