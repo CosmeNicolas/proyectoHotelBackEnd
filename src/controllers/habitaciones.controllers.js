@@ -42,3 +42,25 @@ export const crearHabitacion = async (req, res) => {
     res.status(400).json({ mensaje: "La Habitacion no pudo ser creada" });
   }
 };
+
+//! 4 - PUT Editar valores de una habitacion
+export const editarHabitacion = async(req, res) => {
+  try {
+    const habitacionBuscada = await Habitacion.findById(req.params.id);
+    if (habitacionBuscada === null) {
+      return res.status(404).json({
+        mensaje: "No se encontro la habitacion con el id especificado",
+      });
+    }
+    await Habitacion.findByIdAndUpdate(req.params.id, req.body);
+    res.status(200).json({
+      mensaje: "Las habitacion ha sido editada correctamente",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      mensaje: "Error interno del servidor, no se pudo editar la habitación",
+    });
+  }
+};
+
