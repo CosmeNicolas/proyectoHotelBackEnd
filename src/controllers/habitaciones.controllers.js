@@ -64,3 +64,23 @@ export const editarHabitacion = async(req, res) => {
   }
 };
 
+//! 5 - DELETE Borrar por id
+export const borrarHabitacion = async(req, res) => {
+  try {
+    const habitacionBuscada = await Habitacion.findById(req.params.id);
+    if (habitacionBuscada === null) {
+      return res.status(404).json({
+        mensaje: "No se encontro la habitación con el id especificado",
+      });
+    }
+    await Habitacion.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      mensaje: "La habitacion ha sido borrada correctamente",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      mensaje: "Error interno del servidor, no se pudo borrar la habitacion",
+    });
+  }
+}
