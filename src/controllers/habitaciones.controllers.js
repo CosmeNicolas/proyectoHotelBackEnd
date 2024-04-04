@@ -1,11 +1,13 @@
 // falta crear el modelHabitacion e importarlo
 import Habitacion from "../database/models/modelHabitacion.js";
 //! 1 - GET para listar todas las habitaciones
-export const listarHabitaciones = (req, res) => {
+export const listarHabitaciones = async(req, res) => {
   try {
-    //agregar logica del get para listar todas las habtaciones
+    const habitaciones = await Habitacion.find();
+    res.status(200).json(habitaciones)
   } catch (error) {
     console.error(error);
+    res.status(500).json({mensaje: 'Erorr al buscar la habitacion'})
   }
 };
 
