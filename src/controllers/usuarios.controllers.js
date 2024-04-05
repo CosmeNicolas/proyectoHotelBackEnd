@@ -71,3 +71,22 @@ export const listarUsuarios = async(req, res)=>{
     res.status(500).json({ mensaje: "Erorr al buscar el usuario" });
   }
 }
+
+// 3 - GET  de 1 usuario por id
+export const obtenerUsuario = async (req, res) => {
+  try {
+    console.log(req.params.id)
+    const usuarioBuscado = await Usuario.findById(req.params.id);
+    if (usuarioBuscado === null) {
+      return res.status(404).json({
+        mensaje: "El usuario con el id enviado no existe",
+      });
+    }
+    res.status(200).json(usuarioBuscado);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({
+      mensaje: "No se pudo encontrar al usuario solicitado, id erróneo",
+    });
+  }
+};
