@@ -60,3 +60,14 @@ export const login = async (req, res) => {
     });
   }
 };
+
+//Listar Usuarios
+export const listarUsuarios = async(req, res)=>{
+  try {
+    const usuario = await Usuario.find();
+    res.status(200).json(usuario);
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ mensaje: "Erorr al buscar el usuario" });
+  }
+}
