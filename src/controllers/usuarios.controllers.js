@@ -110,3 +110,25 @@ export const editarUsuario = async(req, res) => {
     });
   }
 };
+
+//! 5 - DELETE borrar usuarios por id
+
+export const eliminarUsuario = async (req, res) => {
+  try {
+    const usuarioEliminado = await Usuario.findById(req.params.id);
+    if (usuarioEliminado === null) {
+      return res.status(404).json({
+        mensaje: "No se encontró el usuario con el ID especificado",
+      });
+    } 
+    await Usuario.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      mensaje: "Usuario eliminado correctamente",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      mensaje: "Error interno del servidor, no se pudo eliminar el usuario",
+    });
+  }
+};
