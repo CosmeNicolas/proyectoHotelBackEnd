@@ -11,7 +11,7 @@ const habitacionSchema = new Schema({
   tipo: {
     type: String,
     required: true,
-    enum: ["Simple", "Doble", "Vip", "Suite"],
+    enum: ["Doble Twin", "Doble Superior", "Triple Superior", "Suite"],
   },
   precio: {
     type: Number,
