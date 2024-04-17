@@ -32,6 +32,7 @@ const habitacionSchema = new Schema({
   disponible: {
     type: Boolean,
     required: true,
+    default: true,
   },
   imagen: {
     type: String,
@@ -43,6 +44,7 @@ const habitacionSchema = new Schema({
       message: (dato) => `${dato.value} no es una URL de imagen valida`,
     },
   },
+  
 });
 
 const Habitacion = mongoose.model("habitacion", habitacionSchema);
