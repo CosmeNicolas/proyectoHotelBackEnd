@@ -1,5 +1,8 @@
-import { check } from "express-validator";
+import { check, checkSchema } from "express-validator";
 import resultadoValidacion from "./resultadoValidacion.js";
+// import crearHabitacion from "../controllers/habitaciones.controllers.js";
+
+
 
 function getDate() {
     const today = new Date();
@@ -65,7 +68,7 @@ const validacionHabitacion = [
             if(getYear()<=anio && getMonth()<=mes && getDate()<dia){
                 return true;
             }else{
-                throw new Error('La fecha de ingreso debe estar entre  y ')
+                throw new Error('La fecha de ingreso debe ser mayor a la del dia de hoy ')
             }
         }),
       check("fechaSalida")
@@ -74,7 +77,19 @@ const validacionHabitacion = [
         // .isNumeric()
         // .withMessage('Lafecha de salida debe ser un número')
         .custom((value)=>{
-            if(value >= 1 && value <= 10000){
+            req.body
+            const fechaIngresada = val
+            const split = fechaIngresada.split('-');
+            const anioEtr = split[0];
+            const mesEtr = split[1];
+            const diaEtr = split[2];
+
+            const fechaIngresadaSa = value;
+            const split2 = fechaIngresadaSa.split('-');
+            const anio = split2[0];
+            const mes = split2[1];
+            const dia = split2[2];
+            if(anioEtr>=anio && mesEtr>=mes && diaEtr>=dia+1){
                 return true;
             }else{
                 throw new Error('La fecha de salida debe estar entre  y ')
