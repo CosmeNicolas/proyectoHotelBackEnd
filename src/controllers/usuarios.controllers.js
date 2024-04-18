@@ -4,6 +4,12 @@ import bcrypt from "bcrypt";
 //! 1 - POST para dar de alta un User
 export const crearUsuario = async (req, res) => {
   try {
+    const errorCrear = validationResult(req);
+    
+    if (!errorCrear.isEmpty()) {
+      return res.status(400).json({errores: errorCrear.array()})
+    }
+
     const { email, password } = req.body;
     const emailExiste = await Usuario.findOne({ email });
     if (emailExiste) {
