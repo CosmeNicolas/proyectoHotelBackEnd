@@ -1,8 +1,5 @@
-import { check, checkSchema } from "express-validator";
+import { check } from "express-validator";
 import resultadoValidacion from "./resultadoValidacion.js";
-// import crearHabitacion from "../controllers/habitaciones.controllers.js";
-
-
 
 function getDate() {
     const today = new Date();
@@ -56,8 +53,6 @@ const validacionHabitacion = [
       check("fechaIngreso")
         .notEmpty()
         .withMessage("La fecha de ingreso es un dato obligatorio")
-        // .isNumeric()
-        // .withMessage('La fecha de ingreso debe ser un número')
         .custom((value)=>{
             const fechaIngresada = value;
             const split = fechaIngresada.split('-');
@@ -68,31 +63,23 @@ const validacionHabitacion = [
             if(getYear()<=anio && getMonth()<=mes && getDate()<dia){
                 return true;
             }else{
-                throw new Error('La fecha de ingreso debe ser mayor a la del dia de hoy ')
+                throw new Error('La fecha de ingreso debe ser mayor al dia actual')
             }
         }),
       check("fechaSalida")
         .notEmpty()
         .withMessage("Lafecha de salida es un dato obligatorio")
-        // .isNumeric()
-        // .withMessage('Lafecha de salida debe ser un número')
         .custom((value)=>{
-            req.body
-            const fechaIngresada = val
-            const split = fechaIngresada.split('-');
-            const anioEtr = split[0];
-            const mesEtr = split[1];
-            const diaEtr = split[2];
+            const fechaSalida = value;
+            const split = fechaSalida.split('-');
+            const anio = split[0];
+            const mes = split[1];
+            const dia = split[2];
 
-            const fechaIngresadaSa = value;
-            const split2 = fechaIngresadaSa.split('-');
-            const anio = split2[0];
-            const mes = split2[1];
-            const dia = split2[2];
-            if(anioEtr>=anio && mesEtr>=mes && diaEtr>=dia+1){
+            if(getYear()<=anio && getMonth()<=mes && getDate()<dia){
                 return true;
             }else{
-                throw new Error('La fecha de salida debe estar entre  y ')
+                throw new Error('La fecha de ingreso debe ser mayor al dia actual')
             }
         }),
       check("disponible")
