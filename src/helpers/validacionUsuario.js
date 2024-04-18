@@ -4,9 +4,9 @@ import resultadoValidacion from "./resultadoValidacion.js";
 const validacionUsuario   = [
     check("nombreCompleto")
       .notEmpty()
-      .withMessage("El numero de habitacion es un dato obligatorio")
+      .withMessage("El nombre es un dato obligatorio")
       .isString()
-      .withMessage('El numero de habitacion debe ser un string')
+      .withMessage('El nombre debe ser un string')
       .isLength({min: 3, max:60}),
       
       check('email')
@@ -26,18 +26,18 @@ const validacionUsuario   = [
       .withMessage('El password es un dato obligatorio')
       .isString()
       .withMessage('El password debe ser un string'),
-      check('rol')
-      .notEmpty()
-      .withMessage('EL rol es un dato obligatorio')
-      .isIn(["Administrador", "Usuario"])
-      .withMessage("EL rol debe ser una de las siguientes opciones (Usuario, Administrador)")
-      ,
-      check("suspendido")
-      .notEmpty()
-      .withMessage("Suspendido es un dato obligatorio")
-      .isBoolean()
-      .withMessage('Suspendido debe ser un booleano')
-      ,
+    //   check('rol')
+    //   .notEmpty()
+    //   .withMessage('EL rol es un dato obligatorio')
+    //   .isIn(["Administrador", "Usuario"])
+    //   .withMessage("EL rol debe ser una de las siguientes opciones (Usuario, Administrador)")
+    //   ,
+    //   check("suspendido")
+    //   .notEmpty()
+    //   .withMessage("Suspendido es un dato obligatorio")
+    //   .isBoolean()
+    //   .withMessage('Suspendido debe ser un booleano')
+    //   ,
 
 
     (req, res, next) => resultadoValidacion(req,res,next)
