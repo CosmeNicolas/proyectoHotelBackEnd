@@ -94,13 +94,6 @@ const validacionHabitacion = [
       .matches(/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|gif|png)/)
       .withMessage('La imagen debe ser una url valida y terminar con alguna de las siguientes extensiones (jpg|jpeg|gif|png)')
       ,
-      check('descripcion')
-      .notEmpty()
-      .withMessage('La descripcion es un dato obligatorio')
-      .isString()
-      .withMessage('La descripcion debe ser un string')
-      .isLength({min: 35, max:500})
-      .withMessage('La descripcion debe tener entre 35 y 500 letras'),
       
     (req, res, next) => resultadoValidacion(req,res,next)
   ]

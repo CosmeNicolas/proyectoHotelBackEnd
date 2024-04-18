@@ -8,7 +8,7 @@ export const crearUsuario = async (req, res) => {
     const errorCrear = validationResult(req);
 
     if (!errorCrear.isEmpty()) {
-      return res.status(400).json({errores: errorCrear.array()})
+      return res.status(400).json({ errores: errorCrear.array() });
     }
 
     const { email, password } = req.body;
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
       mensaje: "El usuario existe",
       usuario: usuarioBuscado.usuario,
       email: usuarioBuscado.email,
-      rol: usuarioBuscado.rol
+      rol: usuarioBuscado.rol,
     });
   } catch (error) {
     console.error(error);
@@ -70,20 +70,20 @@ export const login = async (req, res) => {
 };
 
 //Listar Usuarios
-export const listarUsuarios = async(req, res)=>{
+export const listarUsuarios = async (req, res) => {
   try {
     const usuario = await Usuario.find();
     res.status(200).json(usuario);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ mensaje: "Erorr al buscar el usuario" });
   }
-}
+};
 
 // 3 - GET  de 1 usuario por id
 export const obtenerUsuario = async (req, res) => {
   try {
-    console.log(req.params.id)
+    console.log(req.params.id);
     const usuarioBuscado = await Usuario.findById(req.params.id);
     if (usuarioBuscado === null) {
       return res.status(404).json({
@@ -99,7 +99,7 @@ export const obtenerUsuario = async (req, res) => {
   }
 };
 // 4 - PUT Editar valores de un usuario
-export const editarUsuario = async(req, res) => {
+export const editarUsuario = async (req, res) => {
   try {
     const usuarioBuscado = await Usuario.findById(req.params.id);
     if (usuarioBuscado === null) {
@@ -128,7 +128,7 @@ export const eliminarUsuario = async (req, res) => {
       return res.status(404).json({
         mensaje: "No se encontró el usuario con el ID especificado",
       });
-    } 
+    }
     await Usuario.findByIdAndDelete(req.params.id);
     res.status(200).json({
       mensaje: "Usuario eliminado correctamente",
