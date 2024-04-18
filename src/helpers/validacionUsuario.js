@@ -7,7 +7,9 @@ const validacionUsuario   = [
       .withMessage("El nombre es un dato obligatorio")
       .isString()
       .withMessage('El nombre debe ser un string')
-      .isLength({min: 3, max:60}),
+      .isLength({min: 3, max:60})
+      .withMessage('La descripcion debe tener entre 35 y 500 letras'),
+
       
       check('email')
       .notEmpty()
