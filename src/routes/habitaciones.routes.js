@@ -13,11 +13,11 @@ const router = Router();
 router
   .route("/habitaciones")
   .get(listarHabitaciones)
-  .post([validacionHabitacion], crearHabitacion);
+  .post(crearHabitacion);
 router
   .route("/habitaciones/:id")
   .get(obtenerHabitacion)
-  .put([validacionHabitacion],editarHabitacion)
+  .put(editarHabitacion)
   .delete(borrarHabitacion);
 
 export default router;
