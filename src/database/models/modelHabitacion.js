@@ -22,17 +22,21 @@ const habitacionSchema = new Schema({
   fechaIngreso: {
     type: Date,
     required: true,
+    default: Date.now,
   },
 
   fechaSalida: {
     type: Date,
     required: true,
+    default: () => {
+      const diaDespues = new Date();
+      diaDespues.setDate(diaDespues.getDate() + 1);
+      return diaDespues;
+    },
   },
-
   disponible: {
     type: Boolean,
     required: true,
-    default: true,
   },
   imagen: {
     type: String,

@@ -10,14 +10,11 @@ import validacionHabitacion from "../helpers/validacionHabitacion.js";
 
 const router = Router();
 
-router
-  .route("/habitaciones")
-  .get(listarHabitaciones)
-  .post([validacionHabitacion], crearHabitacion);
+router.route("/habitaciones").get(listarHabitaciones).post(crearHabitacion);
 router
   .route("/habitaciones/:id")
   .get(obtenerHabitacion)
-  .put([validacionHabitacion],editarHabitacion)
+  .put(editarHabitacion)
   .delete(borrarHabitacion);
 
 export default router;
