@@ -22,27 +22,18 @@ const habitacionSchema = new Schema({
   fechaIngreso: {
     type: Date,
     required: true,
-    default: function () {
-      const fechaArgentina = new Date().toLocaleString("en-US", {
-        timeZone: "America/Argentina/Buenos_Aires",
-      });
-      return fechaArgentina;
-    },
+    default: Date.now,
   },
 
   fechaSalida: {
     type: Date,
     required: true,
-    default: function() {
-      const fechaArgentina = new Date().toLocaleString("en-US", {
-        timeZone: "America/Argentina/Buenos_Aires",
-      });
-      const tomorrow = new Date(fechaArgentina);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      return tomorrow;
+    default: () => {
+      const diaDespues = new Date();
+      diaDespues.setDate(diaDespues.getDate() + 1);
+      return diaDespues;
     },
   },
-
   disponible: {
     type: Boolean,
     required: true,
