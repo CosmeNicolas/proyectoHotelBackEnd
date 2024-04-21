@@ -39,7 +39,7 @@ const validacionHabitacion = [
       }
     }),
 
-    check("disponible")
+  check("disponible")
     .notEmpty()
     .withMessage("La disponibilidad es un dato obligatorio")
     .isBoolean()
