@@ -37,7 +37,9 @@ const usuarioSchema = new Schema({
     type: String,
     
     enum: ["Administrador", "Usuario"],
+
     default:"Usuario",
+
   },
 
   suspendido: {

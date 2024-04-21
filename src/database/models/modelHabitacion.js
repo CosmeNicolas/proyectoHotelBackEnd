@@ -11,7 +11,7 @@ const habitacionSchema = new Schema({
   tipo: {
     type: String,
     required: true,
-    enum: ["Simple", "Doble", "Vip", "Suite"],
+    enum: ["Doble Twin", "Doble Superior", "Triple Superior", "Suite"],
   },
   precio: {
     type: Number,
@@ -22,13 +22,18 @@ const habitacionSchema = new Schema({
   fechaIngreso: {
     type: Date,
     required: true,
+    default: Date.now,
   },
 
   fechaSalida: {
     type: Date,
     required: true,
+    default: () => {
+      const diaDespues = new Date();
+      diaDespues.setDate(diaDespues.getDate() + 1);
+      return diaDespues;
+    },
   },
-
   disponible: {
     type: Boolean,
     required: true,

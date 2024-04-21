@@ -1,9 +1,16 @@
 import Usuario from "../database/models/modelUsuario.js";
 import bcrypt from "bcrypt";
+import { validationResult } from "express-validator";
+import generarJWT from "../helpers/generarJWT.js";
 
-//! 1 - POST para dar de alta un User
 export const crearUsuario = async (req, res) => {
   try {
+    const errorCrear = validationResult(req);
+
+    if (!errorCrear.isEmpty()) {
+      return res.status(400).json({ errores: errorCrear.array() });
+    }
+
     const { email, password } = req.body;
     const emailExiste = await Usuario.findOne({ email });
     if (emailExiste) {
@@ -29,7 +36,6 @@ export const crearUsuario = async (req, res) => {
   }
 };
 
-//! 2 - Login del usuario - Se verifica el mail y password correctos
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -48,10 +54,18 @@ export const login = async (req, res) => {
         mensaje: "Contraseña o correo incorrecto (quitar: fallo el pass)",
       });
     }
-    await res.status(200).json({
+
+    const token = await generarJWT(
+      usuarioBuscado.usuario,
+      usuarioBuscado.email
+    );
+
+    res.status(200).json({
       mensaje: "El usuario existe",
       usuario: usuarioBuscado.usuario,
       email: usuarioBuscado.email,
+      rol: usuarioBuscado.rol,
+      token,
     });
   } catch (error) {
     console.error(error);
@@ -61,21 +75,19 @@ export const login = async (req, res) => {
   }
 };
 
-//Listar Usuarios
-export const listarUsuarios = async(req, res)=>{
+export const listarUsuarios = async (req, res) => {
   try {
     const usuario = await Usuario.find();
     res.status(200).json(usuario);
   } catch (error) {
-    console.log(error)
+    console.log(error);
     res.status(500).json({ mensaje: "Erorr al buscar el usuario" });
   }
-}
+};
 
-// 3 - GET  de 1 usuario por id
 export const obtenerUsuario = async (req, res) => {
   try {
-    console.log(req.params.id)
+    console.log(req.params.id);
     const usuarioBuscado = await Usuario.findById(req.params.id);
     if (usuarioBuscado === null) {
       return res.status(404).json({
@@ -90,8 +102,8 @@ export const obtenerUsuario = async (req, res) => {
     });
   }
 };
-// 4 - PUT Editar valores de un usuario
-export const editarUsuario = async(req, res) => {
+
+export const editarUsuario = async (req, res) => {
   try {
     const usuarioBuscado = await Usuario.findById(req.params.id);
     if (usuarioBuscado === null) {
@@ -111,8 +123,6 @@ export const editarUsuario = async(req, res) => {
   }
 };
 
-//! 5 - DELETE borrar usuarios por id
-
 export const eliminarUsuario = async (req, res) => {
   try {
     const usuarioEliminado = await Usuario.findById(req.params.id);
@@ -120,7 +130,7 @@ export const eliminarUsuario = async (req, res) => {
       return res.status(404).json({
         mensaje: "No se encontró el usuario con el ID especificado",
       });
-    } 
+    }
     await Usuario.findByIdAndDelete(req.params.id);
     res.status(200).json({
       mensaje: "Usuario eliminado correctamente",

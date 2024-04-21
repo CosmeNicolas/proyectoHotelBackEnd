@@ -1,3 +1,4 @@
+import { validationResult } from "express-validator";
 import Habitacion from "../database/models/modelHabitacion.js";
 
 //! 1 - GET para listar todas las habitaciones
@@ -34,6 +35,12 @@ export const obtenerHabitacion = async (req, res) => {
 //! 2 - POST Crear nueva habitación
 export const crearHabitacion = async (req, res) => {
   try {
+    const errorCrear = validationResult(req);
+    
+    if (!errorCrear.isEmpty()) {
+      return res.status(400).json({errores: errorCrear.array()})
+    }
+
     const nuevaHabitacion = new Habitacion(req.body);
     await nuevaHabitacion.save();
     res.status(201).json({ mensaje: "La Habitacion fue creada con Éxito!" });
