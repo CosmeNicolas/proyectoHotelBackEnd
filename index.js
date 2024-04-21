@@ -1,10 +1,9 @@
 console.log("Bienvenido al BackHotel");
-
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import morgan from "morgan";
-import path, { dirname } from 'path';
+import path from "path";
 import { fileURLToPath } from "url";
 import "./src/database/database.js";
 import habitacionesRouter from "./src/routes/habitaciones.routes.js";
