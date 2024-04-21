@@ -7,6 +7,7 @@ import {
   borrarHabitacion,
 } from "../controllers/habitaciones.controllers.js";
 import validacionHabitacion from "../helpers/validacionHabitacion.js";
+import validarJWT from "../helpers/validarJWT.js"
 
 const router = Router();
 

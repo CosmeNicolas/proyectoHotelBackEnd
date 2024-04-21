@@ -1,6 +1,7 @@
 import Usuario from "../database/models/modelUsuario.js";
 import bcrypt from "bcrypt";
 import { validationResult } from "express-validator";
+import generarJWT from "../helpers/generarJWT.js";
 
 //! 1 - POST para dar de alta un User
 export const crearUsuario = async (req, res) => {
@@ -55,6 +56,8 @@ export const login = async (req, res) => {
         mensaje: "Contraseña o correo incorrecto (quitar: fallo el pass)",
       });
     }
+    const token = generarJWT(usuarioBuscado.nombreCompleto, usuarioBuscado.email)
+
     await res.status(200).json({
       mensaje: "El usuario existe",
       usuario: usuarioBuscado.usuario,
