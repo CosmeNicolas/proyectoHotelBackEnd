@@ -56,13 +56,15 @@ export const login = async (req, res) => {
         mensaje: "Contraseña o correo incorrecto (quitar: fallo el pass)",
       });
     }
-    const token = generarJWT(usuarioBuscado.nombreCompleto, usuarioBuscado.email)
+    //generar el token 
+    const token = await generarJWT(usuarioBuscado.usuario, usuarioBuscado.email)
 
-    await res.status(200).json({
+      res.status(200).json({
       mensaje: "El usuario existe",
       usuario: usuarioBuscado.usuario,
       email: usuarioBuscado.email,
       rol: usuarioBuscado.rol,
+      token
     });
   } catch (error) {
     console.error(error);
