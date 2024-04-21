@@ -3,7 +3,6 @@ import bcrypt from "bcrypt";
 import { validationResult } from "express-validator";
 import generarJWT from "../helpers/generarJWT.js";
 
-//! 1 - POST para dar de alta un User
 export const crearUsuario = async (req, res) => {
   try {
     const errorCrear = validationResult(req);
@@ -37,7 +36,6 @@ export const crearUsuario = async (req, res) => {
   }
 };
 
-//! 2 - Login del usuario - Se verifica el mail y password correctos
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -56,15 +54,18 @@ export const login = async (req, res) => {
         mensaje: "Contraseña o correo incorrecto (quitar: fallo el pass)",
       });
     }
-    //generar el token 
-    const token = await generarJWT(usuarioBuscado.usuario, usuarioBuscado.email)
 
-      res.status(200).json({
+    const token = await generarJWT(
+      usuarioBuscado.usuario,
+      usuarioBuscado.email
+    );
+
+    res.status(200).json({
       mensaje: "El usuario existe",
       usuario: usuarioBuscado.usuario,
       email: usuarioBuscado.email,
       rol: usuarioBuscado.rol,
-      token
+      token,
     });
   } catch (error) {
     console.error(error);
@@ -74,7 +75,6 @@ export const login = async (req, res) => {
   }
 };
 
-//Listar Usuarios
 export const listarUsuarios = async (req, res) => {
   try {
     const usuario = await Usuario.find();
@@ -85,7 +85,6 @@ export const listarUsuarios = async (req, res) => {
   }
 };
 
-// 3 - GET  de 1 usuario por id
 export const obtenerUsuario = async (req, res) => {
   try {
     console.log(req.params.id);
@@ -103,7 +102,7 @@ export const obtenerUsuario = async (req, res) => {
     });
   }
 };
-// 4 - PUT Editar valores de un usuario
+
 export const editarUsuario = async (req, res) => {
   try {
     const usuarioBuscado = await Usuario.findById(req.params.id);
@@ -123,8 +122,6 @@ export const editarUsuario = async (req, res) => {
     });
   }
 };
-
-//! 5 - DELETE borrar usuarios por id
 
 export const eliminarUsuario = async (req, res) => {
   try {
