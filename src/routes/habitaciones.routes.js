@@ -7,18 +7,20 @@ import {
   borrarHabitacion,
 } from "../controllers/habitaciones.controllers.js";
 import validacionHabitacion from "../helpers/validacionHabitacion.js";
-import validarJWT from "../helpers/validarJWT.js"
+import validarJWT from "../helpers/validarJWT.js";
+import { reservarHabitacion } from "../controllers/reservas.controllers.js";
 
 const router = Router();
 
 router
   .route("/habitaciones")
   .get(listarHabitaciones)
-  .post([validarJWT,validacionHabitacion], crearHabitacion);
+  .post([validarJWT, validacionHabitacion], crearHabitacion);
 router
   .route("/habitaciones/:id")
   .get(obtenerHabitacion)
   .put([validacionHabitacion], editarHabitacion)
   .delete(borrarHabitacion);
+  router.route("/habitaciones/reservas/:id").put(reservarHabitacion);
 
 export default router;

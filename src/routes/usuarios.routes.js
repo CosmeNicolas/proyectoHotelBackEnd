@@ -12,7 +12,7 @@ import { reservarHabitacion } from "../controllers/reservas.controllers.js";
 
 const router = Router();
 
-router.route("/usuarios/reservar/:id").put(reservarHabitacion);
+
 router.route("/registrar").post([validacionUsuario], crearUsuario);
 router.route("/usuarios").get(listarUsuarios);
 router
