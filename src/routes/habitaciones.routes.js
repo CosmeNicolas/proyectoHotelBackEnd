@@ -8,7 +8,7 @@ import {
 } from "../controllers/habitaciones.controllers.js";
 import validacionHabitacion from "../helpers/validacionHabitacion.js";
 import validarJWT from "../helpers/validarJWT.js";
-import { reservarHabitacion } from "../controllers/reservas.controllers.js";
+
 
 const router = Router();
 
@@ -19,8 +19,8 @@ router
 router
   .route("/habitaciones/:id")
   .get(obtenerHabitacion)
-  .put([validacionHabitacion], editarHabitacion)
+  .put([validarJWT,validacionHabitacion], editarHabitacion)
   .delete(borrarHabitacion);
-  router.route("/habitaciones/reservas/:id").put(reservarHabitacion);
+  
 
 export default router;

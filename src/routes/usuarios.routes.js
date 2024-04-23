@@ -8,7 +8,7 @@ import {
   eliminarUsuario,
 } from "../controllers/usuarios.controllers.js";
 import validacionUsuario from "../helpers/validacionUsuario.js";
-import { reservarHabitacion } from "../controllers/reservas.controllers.js";
+
 
 const router = Router();
 
