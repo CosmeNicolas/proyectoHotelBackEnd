@@ -18,7 +18,7 @@ router
 router
   .route("/habitaciones/:id")
   .get(obtenerHabitacion)
-  .put([validarJWT, validacionHabitacion], editarHabitacion)
-  .delete(validarJWT, borrarHabitacion);
+  .put([validacionHabitacion], editarHabitacion)
+  .delete(borrarHabitacion);
 
 export default router;
