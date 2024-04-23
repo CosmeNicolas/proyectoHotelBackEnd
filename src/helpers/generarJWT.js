@@ -5,7 +5,7 @@ const generarJWT = async (nombreCompleto, email) => {
   try {
     const payload = { nombreCompleto, email };
     const token = await jwt.sign(payload, process.env.SECRET_JWT, {
-      expiresIn: "2h",
+      expiresIn: "3h",
     });
     return token;
   } catch (error) {
