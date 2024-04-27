@@ -1,6 +1,21 @@
 import mongoose, { Schema } from "mongoose";
 
 const habitacionSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    minLength: 10,
+    maxLength: 340,
+    validate: {
+      validator: (valor) => {
+        const pattern =
+          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        return pattern.test(valor);
+      },
+      message: (props) => `${props.value} No es un E-mail válido`,
+    },
+    unique: true,
+  },
   numero: {
     type: Number,
     requided: true,
