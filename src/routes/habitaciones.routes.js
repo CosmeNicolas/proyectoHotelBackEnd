@@ -21,6 +21,8 @@ router
   .get(obtenerHabitacion)
   .put([validacionHabitacion], editarHabitacion)
   .delete(borrarHabitacion);
+
+router.route("/habitaciones/reserva/:id")
   
 
 export default router;
