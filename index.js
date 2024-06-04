@@ -1,5 +1,3 @@
-console.log("Bienvenido al BackHotel");
-
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
